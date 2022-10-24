@@ -1,0 +1,42 @@
+.StepsLayout{
+    margin-top: 20px;
+}
+.Welcome{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.description{
+    padding:0 15px;
+    
+}
+.Welcome-cancel{
+    margin: 10px auto;
+    border: 2px solid yellow;
+}
+.Search{
+    display: flex;
+    flex-direction: column;
+
+}
+.Search-container{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 30px;
+    padding: 0 50px;
+}
+
+#name{
+    margin: 10px;
+    padding: 3px;
+}
+.Passengers-buttons{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0 25px;
+}
+.Tickets-ticket_country{
+    margin: 10px auto;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}

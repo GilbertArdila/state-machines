@@ -1,0 +1,10 @@
+.BaseLayout{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: auto;
+    min-height: 250px;
+    margin: 0 auto;
+    padding:25px 5px;
+    background: rgb(63,101,251);
+    background: radial-gradient(circle, rgba(63,101,251,1) 81%, rgba(194,203,48,0.9780287114845938) 100%);}

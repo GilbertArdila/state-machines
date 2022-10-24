@@ -1,7 +1,13 @@
 import React,{useState} from 'react'
 
  const Passengers = ({send,state}) => {
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState([]);
+
+  const {passengers}=state.context
+  console.log(passengers)
+  console.log(state)
+    
+   
 
     const handleOnChange=(e)=>{
        setValue(e.target.value)
@@ -13,11 +19,15 @@ import React,{useState} from 'react'
 
     const handleSubmit=(e)=>{
      e.preventDefault();
+     send('ADD',{newPassenger:value})
      setValue('');
     }
   return (
     <form onSubmit={handleSubmit} className='Passengers'>
-      <p className='Passengers-title'>Agrega a las personas que van a volar ✈️</p>
+      <p className='Passengers-title title'>Agrega a las personas que van a volar ✈️</p>
+     {passengers.length>0 && passengers.map((passenger)=>(
+      <p key={passenger}>{passenger}</p>
+     ))}
       <input 
         id="name" 
         name="name" 
@@ -29,7 +39,7 @@ import React,{useState} from 'react'
       />
       <div className='Passengers-buttons'>
         <button 
-          className='Passengers-add button-secondary'
+          className='Passengers-add button'
           type="submit"
         >
           Agregar Pasajero

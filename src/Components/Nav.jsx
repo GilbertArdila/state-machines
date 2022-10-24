@@ -10,7 +10,7 @@ const Nav = ({ state, send }) => {
         <nav className='Nav'>
             <h1 className='Nav-logo'>Book a fly ✈ </h1>
 
-            {!state.matches('initialState') && <button className='Nav-cancel' onClick={handleGoToWelcome}>Cancelar</button>}
+            {!state.matches('initialState') && <button className='Nav-cancel button' onClick={handleGoToWelcome}>Cancelar</button>}
 
         </nav>
     )
