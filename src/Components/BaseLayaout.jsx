@@ -1,14 +1,19 @@
 import React from 'react';
 import { useMachine } from '@xstate/react';
 import { bookingMachine } from '../Machines/bookingMachine';
+import { StepsLayout } from '../Containers/StepsLayout';
+import { Nav } from './Nav';
 
 const BaseLayaout = () => {
-    const[state,send]=useMachine(bookingMachine);
-    console.log(`maquina state`,state)
+  const [state, send] = useMachine(bookingMachine);
 
   return (
-    <div>BaseLayaout</div>
+    <div className='BaseLayout'>
+      <Nav send={send} state={state}
+      />
+      <StepsLayout send={send} state={state} />
+    </div>
   )
 }
 
-export { BaseLayaout}
+export { BaseLayaout }
