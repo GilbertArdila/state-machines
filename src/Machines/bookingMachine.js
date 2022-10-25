@@ -1,4 +1,36 @@
 import { createMachine ,assign} from "xstate";
+import { fetchCountries } from "../Utils/api";
+
+const fillCountries={
+    initial:'loading',
+    states:{
+        loading:{
+           invoke:{
+            id:'getCountries',
+            src:()=>fetchCountries,
+            onDone:{
+                target:'success',
+                actions:assign({
+                    countries:(context,event)=>event.data
+                })
+            },
+            onError:{
+                target:'failure',
+                actions:assign({
+                    error:'Falló request'
+                })
+            }
+           }
+        },
+        success:{},
+        failure:{
+            on:{
+                RETRY:{target:'loading'}
+            }
+        }
+    }
+}
+
 
 const bookingMachine=createMachine({
     
@@ -7,13 +39,16 @@ const bookingMachine=createMachine({
     context:{
         passengers:[],
         country:'',
+        countries:[],
+        date:'',
+        error:'',
+       
     },
     states:{
         initialState:{
             on:{
                 START:{
-                    target:'search',
-                   
+                    target:'search'
                 }
             }
         },
@@ -22,17 +57,20 @@ const bookingMachine=createMachine({
             on:{
                 CONTINUE:{
                     target:'passengers',
-                    actions:'setCountry'
+                    actions:'setCountry',
+                    actions:'setFlightDate'
                 },
-                CANCEL:{
-                    target:'initialState',
-                    actions:'deleteContext'
-                }
-            }
+                CANCEL:'initialState'
+            },
+            ...fillCountries
         },
+       
         passengers:{
             on:{
-                CONTINUE:'tickets',
+                CONTINUE:{
+                    target:'tickets',
+                    cond:'checkPassengers'
+                },
                 CANCEL:{
                     target:'initialState',
                     actions:'deleteContext'
@@ -44,8 +82,17 @@ const bookingMachine=createMachine({
             }
         },
         tickets:{
+            after:{
+                20000:{
+                    target:'initialState',
+                    actions:'deleteContext'
+                }
+            },
             on:{
-                FINISH:'initialState'
+                FINISH:{
+                    target:'initialState',
+                    actions:'deleteContext'
+                }
             }
         }
     }
@@ -58,14 +105,24 @@ const bookingMachine=createMachine({
         setPassengers:assign(
             (context,event)=>context.passengers.push(event.newPassenger)
         ),
-        deleteContext:assign(
+        setFlightDate:assign({
+            date:(context,event)=>event.date
+        }
+        ),
+        deleteContext:assign((context)=>
           {
-            country:'',
-            passengers:[]
+            context.country='',
+            context.passengers=[]
+            return context
           }
 
         )
        
+    },
+    guards:{
+        checkPassengers:(context)=>{
+            return context.passengers.length>0
+        }
     }
 })
 export {bookingMachine}

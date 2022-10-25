@@ -4,9 +4,8 @@ import React,{useState} from 'react'
     const [value, setValue] = useState([]);
 
   const {passengers}=state.context
-  console.log(passengers)
-  console.log(state)
-    
+  
+    console.log(state.context)
    
 
     const handleOnChange=(e)=>{

@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Welcome = ({send}) => {
-  
+const Welcome = ({send,state}) => {
+  console.log(state.context)
     const startBooking=()=>{
         send('START')
     }
