@@ -1,7 +1,6 @@
 import React from 'react'
 
 const Tickets = ({send,state}) => {
-    console.log(state.context)
 
    const{passengers,country,date}=state.context
 

@@ -5,7 +5,6 @@ import React,{useState} from 'react'
 
   const {passengers}=state.context
   
-    console.log(state.context)
    
 
     const handleOnChange=(e)=>{

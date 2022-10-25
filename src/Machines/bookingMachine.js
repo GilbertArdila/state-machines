@@ -57,8 +57,7 @@ const bookingMachine=createMachine({
             on:{
                 CONTINUE:{
                     target:'passengers',
-                    actions:'setCountry',
-                    actions:'setFlightDate'
+                    actions:'setCountry'
                 },
                 CANCEL:'initialState'
             },
@@ -100,14 +99,11 @@ const bookingMachine=createMachine({
 {
     actions:{
         setCountry:assign({
-            country:(context,event)=>event.country
+            country:(context,event)=>event.country,
+            date:(context,event)=>event.date
         }),
         setPassengers:assign(
             (context,event)=>context.passengers.push(event.newPassenger)
-        ),
-        setFlightDate:assign({
-            date:(context,event)=>event.date
-        }
         ),
         deleteContext:assign((context)=>
           {

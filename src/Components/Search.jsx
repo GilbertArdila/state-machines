@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 
 const Search = ({ send, state }) => {
-  console.log(state.context)
 
   const [flight, setflight] = useState('');
   const [flightDate, setFlightDate] = useState('');
 
   const goToPassengers = () => {
-    send('CONTINUE', { date: flightDate ,country: flight });
+    send('CONTINUE', { country: flight,date: flightDate });
 
   }
 
